@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "vue.vscode-typescript-vue-plugin",
+    "vue.volar",
+    "hollowtree.vue-snippets",
+    "dariofuzinato.vue-peek",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "golang.go",
+    "zignd.html-css-class-completion",
+    "xabikos.javascriptsnippets"
+  ]
+}

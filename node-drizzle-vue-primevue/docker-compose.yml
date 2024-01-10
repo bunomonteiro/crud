@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  api:
+    build: ./api/
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: ${PORT:-3000}
+  
+  web:
+    build: ./web/
+    ports:
+      - "${PORT:-8080}:80"
+    environment:
+      NODE_ENV: production
+      PORT: ${PORT:-8080}

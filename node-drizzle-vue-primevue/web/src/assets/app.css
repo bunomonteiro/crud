@@ -1,0 +1,9 @@
+@import url("./fonts.css");
+@import url("./position.css");
+@import url("./buttons.css");
+@import url("./scrollbar.css");
+@import url("./table.css");
+
+html {
+  font-size: 12px;
+}

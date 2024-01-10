@@ -1,0 +1,7 @@
+.header-cell-center .p-column-header-content {
+  justify-content: center;
+}
+
+.header-cell-center .p-column-header-content .p-column-filter-menu {
+  margin-left: initial;
+}

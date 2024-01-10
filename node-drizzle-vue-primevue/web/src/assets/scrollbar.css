@@ -1,0 +1,19 @@
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-200) var(--surface-50);
+}
+
+/* Chrome, Edge, and Safari */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--surface-50);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--surface-200);
+  border-radius: 0px;
+}
