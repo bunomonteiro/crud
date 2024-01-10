@@ -36,6 +36,11 @@ const UserHistoryRelations = relations(UserHistorySchema, ({ one, many }) => ({
     fields: [UserHistorySchema.userId],
     references: [UserSchema.id],
     relationName: "user"
+  }),
+  operator: one(UserSchema, {
+    fields: [UserHistorySchema.operatorId],
+    references: [UserSchema.id],
+    relationName: "operator"
   })
 }))
 //#endregion User
