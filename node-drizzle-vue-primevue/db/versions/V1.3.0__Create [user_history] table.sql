@@ -10,7 +10,7 @@
 -----------------------------
 
 CREATE TABLE public.user_history (
-	user_history_id uuid NOT NULL DEFAULT gen_random_uuid(), -- User history id
+	user_history_id serial4 NOT NULL, -- User history id
 	user_id int4 NOT NULL, -- Target user
 	operator_id int4 NOT NULL, -- User operator
 	created_at timestamp NOT NULL DEFAULT (now() AT TIME ZONE 'utc'::text), -- When it happened
