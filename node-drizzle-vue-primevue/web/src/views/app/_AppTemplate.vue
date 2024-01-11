@@ -33,22 +33,18 @@ const menu = ref([
   },
 ])
 
-function changeTheme(dark) {
-  if(appStore.darkTheme != dark) {
-    appStore.toggleTheme()
-  }
-}
-
-watch(() => appStore.darkTheme, (dark) => {
+function applyTheme(dark) {
   if(dark) {
     PrimeVue.changeTheme('lara-light-blue', 'lara-dark-blue', 'theme-link', () => {});
   } else {
     PrimeVue.changeTheme('lara-dark-blue', 'lara-light-blue', 'theme-link', () => {});
   }
-})
+}
 
-onBeforeMount(() => {
-  changeTheme(appStore.darkTheme)
+watch(() => appStore.darkTheme, applyTheme)
+onBeforeMount(() => { 
+  appStore.loadTheme()
+  applyTheme(appStore.darkTheme) 
 })
 </script>
 
@@ -81,8 +77,8 @@ onBeforeMount(() => {
 
         <template #end>
           <div class="flex align-items-center gap-2">
-            <Button v-if="appStore.darkTheme" icon="pi pi-sun" text rounded v-tooltip.left="'Tema claro'" class="text-color" @click="changeTheme(false)" />
-            <Button v-else icon="pi pi-moon" text rounded v-tooltip.left="'Tema escuro'" class="text-color" @click="changeTheme(true)" />
+            <Button v-if="appStore.darkTheme" icon="pi pi-sun" text rounded v-tooltip.left="'Tema claro'" class="text-color" @click="appStore.saveTheme(false)" />
+            <Button v-else icon="pi pi-moon" text rounded v-tooltip.left="'Tema escuro'" class="text-color" @click="appStore.saveTheme(true)" />
           </div>
         </template>
       </Menubar>
