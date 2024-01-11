@@ -73,7 +73,6 @@ function getCondition(filter) {
  * @see {@link https://primevue.org/datatable/#api.datatable.interfaces.DataTableFilterMeta}
  */
 function isMenuFilter(filter) {
-  // return Object.keys(filters).some((key) => Object.keys(filters[key]).includes('operator'))
   return Object.keys(filter).includes('constraints')
 }
 
