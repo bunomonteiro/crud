@@ -138,13 +138,13 @@ function rowfiltersToWhere(filter) {
 /**
  * Adiciona aos filtros as referidas colunas
  * @param {DataTableFilterMeta} filters Filtros do PrimeVue
- * @param {attachColumnsCallback} callback 
+ * @param {columnMapper} columnMapper Função que mapeia as propriedades e suas respectivas colunas no schema
  * @see {@link https://primevue.org/datatable/#api.datatable.interfaces.DataTableFilterMeta}
- * @callback attachColumnsCallback
- * @param {string} target Nome do filtro (propriedade) alvo
- * @param {object} filter Filtro
+ * @callback columnMapper
+ * @param {string} target Nome da propriedade alvo
+ * @returns Coluna mapeada no schema
  */
-function attachColumns(filters, callback) {
+function attachColumns(filters, columnMapper) {
   if(!filters) {
     return null
   }
@@ -152,9 +152,9 @@ function attachColumns(filters, callback) {
   Object.keys(filters)
     .forEach(target => {
       if(isRowFilter(filters[target])) {
-        callback(target, filters[target])
+        filters[target].column = columnMapper(target)
       } else {
-        filters[target].constraints.forEach(filter => callback(target, filter))
+        filters[target].constraints.forEach(filter => filter.column = columnMapper(target))
       }
     })
 
@@ -164,15 +164,14 @@ function attachColumns(filters, callback) {
 /**
  * Transforma os filtros do Datatable do PrimeVue em cláusula Where do Drizzle
  * @param {DataTableFilterMeta} filters Filtros do PrimeVue
- * @param {filtersToWhereCallback} callback Função que adiciona aos filtros as referidas colunas
+ * @param {columnMapper} columnMapper Função que mapeia as propriedades e suas respectivas colunas no schema
  * @see {@link https://primevue.org/datatable/#api.datatable.interfaces.DataTableFilterMeta}
- * @callback filtersToWhereCallback
- * @param {string} target Nome do filtro (propriedade) alvo
- * @param {object} filter Filtro
- * @returns Cláusula Where do Drizzle
+ * @callback columnMapper
+ * @param {string} target Nome da propriedade alvo
+ * @returns Coluna mapeada no schema
  */
-function filtersToWhere(filters, callback) {
-  filters = attachColumns(filters, callback)
+function filtersToWhere(filters, columnMapper) {
+  filters = attachColumns(filters, columnMapper)
 
   if(!filters) {
     return null
@@ -192,15 +191,16 @@ function filtersToWhere(filters, callback) {
 /**
  * Transforma a ordenação do Datatable do PrimeVue em cláusula Order By do Drizzle
  * @param {DataTableSortMeta[]} sorting Ordenação do PrimeVue
- * @param {sortingToOrderByCallback} callback Função que retorna a coluna da propriedade alvo
+ * @param {columnMapper} columnMapper Função que mapeia as propriedades e suas respectivas colunas no schema
  * @see DataTableSortMeta {@link https://primevue.org/datatable/#api.datatable.interfaces.DataTableSortMeta}
- * @callback sortingToOrderByCallback
+ * @callback columnMapper
  * @param {string} target Nome da propriedade alvo
+ * @returns Coluna mapeada no schema
  */
-function sortingToOrderBy(sorting, callback) {
+function sortingToOrderBy(sorting, columnMapper) {
   return sorting.filter(item => item.order == -1 || item.order == 1)
     .map(item => {
-      return item.order == -1 ? desc(callback(item.field)) : asc(callback(item.field))
+      return item.order == -1 ? desc(columnMapper(item.field)) : asc(columnMapper(item.field))
     })
 }
 

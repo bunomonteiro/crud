@@ -70,46 +70,17 @@ function UserRepository(connector) {
   this.listAllUsers = async function (page, size, options = {}) {
     const offset = page * size;
 
-    const where = filtersToWhere(options.filters, (target, filter) => {
-      if(target === "id") {
-        filter.column = UserSchema.id
-        return
-      }
-
-      if(target === "name") {
-        filter.column = UserSchema.name
-        return
-      }
-
-      if(target === "username") {
-        filter.column = UserSchema.username
-        return
-      }
-
-      if(target === "email") {
-        filter.column = UserSchema.email
-        return
-      }
-
-      if(target === "active") {
-        filter.column = UserSchema.active
-        return
-      }
-
-      if(target === "otpEnabled") {
-        filter.column = UserSchema.otpEnabled
-        return
-      }
-    })
-
-    let orderBy = sortingToOrderBy(options.sorting, (target) => {
+    const columnMapper = (target) => {
       if(target === "id") { return UserSchema.id }
       if(target === "name") { return UserSchema.name }
       if(target === "username") { return UserSchema.username }
       if(target === "email") { return UserSchema.email }
       if(target === "active") { return UserSchema.active }
       if(target === "otpEnabled") { return UserSchema.otpEnabled }
-    })
+    }
+
+    const where = filtersToWhere(options.filters, columnMapper)
+    let orderBy = sortingToOrderBy(options.sorting, columnMapper)
 
     orderBy = orderBy.length ? orderBy : [asc(UserSchema.id)]
     
@@ -264,45 +235,15 @@ function UserRepository(connector) {
     const operator = alias(UserSchema, "operator")
     const user = alias(UserSchema, "user")
 
-    const where = filtersToWhere(options.filters, (target, filter) => {
-      if(target === "user.name") {
-        filter.column = user.name
-        return
-      }
+    const columnMapper = (target) => {
+      if(target === 'event') { return UserHistorySchema.event }
+      if(target === 'createdAt') { return UserHistorySchema.createdAt }
+      if(target === 'user.name') { return user.name }
+      if(target === 'operator.name') { return operator.name }
+    }
 
-      if(target === "event") {
-        filter.column = UserHistorySchema.event
-        return
-      }
-
-      if(target === "operator.name") {
-        filter.column = operator.name
-        return
-      }
-
-      if(target === "createdAt") {
-        filter.column = UserHistorySchema.createdAt
-        return
-      }
-    })
-
-    const orderBy = sortingToOrderBy(options.sorting, (target) => {
-      if(target === 'event') {
-        return UserHistorySchema.event
-      }
-
-      if(target === 'createdAt') {
-        return UserHistorySchema.createdAt
-      }
-
-      if(target === 'user.name') {
-        return user.name
-      }
-
-      if(target === 'operator.name') {
-        return operator.name
-      }
-    })
+    const where = filtersToWhere(options.filters, columnMapper)
+    const orderBy = sortingToOrderBy(options.sorting, columnMapper)
 
     const queryCount = _db.$with('queryCount').as(
       _db.select({ total: count().as("total_rows") })
