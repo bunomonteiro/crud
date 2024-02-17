@@ -14,7 +14,8 @@ function RouterFactory(pinia) {
   const appStore = useAppStore(pinia)
   
   const router = createRouter({
-    history: createWebHistory(configurations.app.uri),
+    history: createWebHistory(configurations.app.basePath),
+    base: configurations.app.basePath,
     routes: [
       {
         path: '/',
