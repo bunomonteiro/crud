@@ -112,17 +112,18 @@ function onKeyup(number, event) {
 
 <template>
   <div class="w-full flex flex-wrap align-content-center justify-content-between">
-    <input v-model="number1" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold" @input="onInput(1, $event)" @keyup="onKeyup(1, $event)" @paste="onPaste" />
-    <input v-model="number2" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold" @input="onInput(2, $event)" @keyup="onKeyup(2, $event)" @paste="onPaste" />
-    <input v-model="number3" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold" @input="onInput(3, $event)" @keyup="onKeyup(3, $event)" @paste="onPaste" />
-    <input v-model="number4" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold" @input="onInput(4, $event)" @keyup="onKeyup(4, $event)" @paste="onPaste" />
-    <input v-model="number5" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold" @input="onInput(5, $event)" @keyup="onKeyup(5, $event)" @paste="onPaste" />
+    <input v-model="number1" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold mr-1" @input="onInput(1, $event)" @keyup="onKeyup(1, $event)" @paste="onPaste" />
+    <input v-model="number2" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold mr-1" @input="onInput(2, $event)" @keyup="onKeyup(2, $event)" @paste="onPaste" />
+    <input v-model="number3" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold mr-1" @input="onInput(3, $event)" @keyup="onKeyup(3, $event)" @paste="onPaste" />
+    <input v-model="number4" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold mr-1" @input="onInput(4, $event)" @keyup="onKeyup(4, $event)" @paste="onPaste" />
+    <input v-model="number5" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold mr-1" @input="onInput(5, $event)" @keyup="onKeyup(5, $event)" @paste="onPaste" />
     <input v-model="number6" class="otp-number text-center inline-block p-inputtext p-component p-inputnumber-input font-bold" @input="onInput(6, $event)" @keyup="onKeyup(6, $event)" @paste="onPaste" />
   </div>
 </template>
 
 <style lang="scss" scoped>
 .otp-number {
-  width: 35px;
+  width: 3rem;
+  height: 3.5rem;
 }
 </style>
