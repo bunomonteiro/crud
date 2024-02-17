@@ -1,0 +1,20 @@
+{
+  "name": "db",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "info": "flyway -c flyway.config.js info",
+    "baseline": "flyway -c flyway.config.js baseline",
+    "validate": "flyway -c flyway.config.js validate",
+    "migrate": "flyway -c flyway.config.js migrate",
+    "repair": "flyway -c flyway.config.js repair",
+    "clean": "flyway -c flyway.config.js clean",
+    "list-engines": "flyway -c flyway.config.js list-engines"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.4",
+    "node-flywaydb": "^3.0.7"
+  }
+}
