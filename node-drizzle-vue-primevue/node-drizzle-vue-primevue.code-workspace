@@ -29,6 +29,8 @@
 				"type": "chrome",
 				"name": "Web",
 				"request": "launch",
+				"runtimeExecutable": "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
+				"userDataDir": true,
 				"url": "http://localhost:5173",
 				"webRoot": "${workspaceFolder}/web/src",
 				"skipFiles": ["<node_internals>/**"]
