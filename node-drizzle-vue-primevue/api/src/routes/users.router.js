@@ -122,7 +122,7 @@ router.patch("/api/v1/users/:username", auth, async (req, res, next) => {
     const request = new UpdateUserRequest();
     request.operator = req.body.$token.sub;
     request.username = req.params.username;
-    request.patch = req.body.patch;
+    request.patches = req.body.patches;
 
     const response = await getMediator().handleAsync(UseCases.USERS__UPDATE_USER, request);
 

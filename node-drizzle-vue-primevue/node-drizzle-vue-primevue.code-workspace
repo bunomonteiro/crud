@@ -24,6 +24,14 @@
 				"restart": true,
 				"cwd": "${workspaceFolder}/api",
 				"skipFiles": ["<node_internals>/**"]
+			},
+			{
+				"type": "chrome",
+				"name": "Web",
+				"request": "launch",
+				"url": "http://localhost:5173",
+				"webRoot": "${workspaceFolder}/web/src",
+				"skipFiles": ["<node_internals>/**"]
 			}
 		]
 	}

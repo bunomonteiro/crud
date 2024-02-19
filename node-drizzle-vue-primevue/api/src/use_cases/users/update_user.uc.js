@@ -37,8 +37,8 @@ function UpdateUserUseCase(connector) {
 
     // WARNING: Evitar alterar as seguintes propriedades neste caso de uso
     const safeProperties = ['/id', '/username', '/passwordrecoverytoken', '/otpsecret', '/otpuri', '/otpenabled', '/otpverified'];
-    const safePatch = request.patch.filter((op) => !safeProperties.includes(op.path?.toLowerCase()))
-    let updatedUser = jsonPatch.applyPatch(user, safePatch, true, false).newDocument;
+    const safePatches = request.patches.filter((op) => !safeProperties.includes(op.path?.toLowerCase()))
+    let updatedUser = jsonPatch.applyPatch(user, safePatches, true, false).newDocument;
 
     const { error: validationError } = validateUser(updatedUser)
 
@@ -75,7 +75,7 @@ function UpdateUserUseCase(connector) {
       operator: Joi.string().min(3).max(32).required().label("Usuário operador"),
       id: Joi.number().positive().label('Nome do usuário'),
       username: Joi.string().min(3).max(32).label('Nome de usuário (login)'),
-      patch: jsonPatchSchema.required().label("Atualizações"),
+      patches: jsonPatchSchema.required().label("Atualizações"),
       eventName: Joi.string().valid(
         UserHistoryModel.EVENT_USER_UPDATED,
         UserHistoryModel.EVENT_USER_PASSWORD_CHANGED
@@ -107,14 +107,14 @@ function UpdateUserUseCase(connector) {
  * @param {string} options.operator Login do usuário executor do caso de uso
  * @param {number} options.id Identificador do usuário alvo
  * @param {string} options.username Nome de usuário (login) do usuário alvo
- * @param {object[]} options.patch Json Patch com as atualizações parciais do usuário
+ * @param {object[]} options.patches Json Patch com as atualizações parciais do usuário
  * @param {string} options.eventName Nome do evento que deve ser registrado. Por padrão: UserHistoryModel.EVENT_USER_UPDATED
  */
 function UpdateUserRequest(options = {}) {
   this.operator = options.operator;
   this.id = options.id;
   this.username = options.username;
-  this.patch = options.patch;
+  this.patches = options.patches;
   this.eventName = options.eventName || UserHistoryModel.EVENT_USER_UPDATED;
 }
 
