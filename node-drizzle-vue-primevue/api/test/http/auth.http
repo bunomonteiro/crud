@@ -1,0 +1,56 @@
+@baseUri=http://localhost:{{$dotenv PORT}}
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJuYW1lIjoiMzI2YjcyYzdiNTRiNGQwMzkyOTgyZGI5ODUxZDc3OTMiLCJlbWFpbCI6Im5vZWxsZS5iYXJuZXNAZW1haWwuY29tIiwidXNlcm5hbWUiOiJub2VsbGUuYmFybmVzIiwiYWN0aXZlIjp0cnVlLCJhdmF0YXIiOiJodHRwczovL2kucHJhdmF0YXIuY2MvMzAwIiwiY292ZXIiOiJodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTY4MjY4NzIyMDU2Ni01NTk5ZGJiZWJmMTE_cT04MCZ3PTgwMCIsIm90cEVuYWJsZWQiOnRydWUsIm90cFZlcmlmaWVkIjp0cnVlLCJvdHBWYWxpZGF0ZWQiOnRydWV9LCJpYXQiOjE3MDgzNTgzMDEsImV4cCI6MTcxMDk1MDMwMSwiYXVkIjoiQ1JVRCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsInN1YiI6Im5vZWxsZS5iYXJuZXMifQ.DxceHBArfU5w3FryEaKybc-GgyxB9luGZO00HYdFJI8
+@username=noelle.barnes
+@password=A1noelle.barnes
+
+### Do signup
+POST {{baseUri}}/api/v1/auth/actions/signup
+Content-Type: application/json
+
+{
+  "name": "{{$guid}}",
+  "email": "{{username}}@email.com",
+  "username": "{{username}}",
+  "password": "{{password}}",
+  "avatar": "https://i.pravatar.cc/300",
+  "cover": "https://images.unsplash.com/photo-1682687220566-5599dbbebf11?q=80&w=800"
+}
+
+### Start 2FA Registration
+POST {{baseUri}}/api/v1/auth/otp/actions/start-registration
+Authorization: {{token}}
+
+### Finish 2FA Registration
+POST {{baseUri}}/api/v1/auth/otp/actions/finish-registration
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "code": "739218"
+}
+
+### Do login
+POST {{baseUri}}/api/v1/auth/actions/signin
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}
+
+### GET QrCode URI
+GET {{baseUri}}/api/v1/auth/otp/actions/get-uri
+Authorization: {{token}}
+
+### Validate 2FA
+POST {{baseUri}}/api/v1/auth/otp/actions/validate
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "code": "369921"
+}
+
+### Disable 2FA
+POST {{baseUri}}/api/v1/auth/otp/actions/disable
+Authorization: {{token}}

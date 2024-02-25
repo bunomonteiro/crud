@@ -4,7 +4,30 @@
 			"path": "."
 		}
 	],
-	"settings": {},
+	"settings": {
+		"sqltools.connections": [
+			{
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"askForPassword": true,
+				"driver": "PostgreSQL",
+				"name": "CRUD",
+				"database": "crud",
+				"username": "admin"
+			},
+			{
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"askForPassword": true,
+				"driver": "PostgreSQL",
+				"name": "CRUD TESTE",
+				"database": "crud_test",
+				"username": "admin"
+			}
+		]
+	},
 	"launch": {
 		"version": "0.2.0",
 		"configurations": [
@@ -23,6 +46,21 @@
 				"processId": "${command:PickProcess}",
 				"restart": true,
 				"cwd": "${workspaceFolder}/api",
+				"skipFiles": ["<node_internals>/**"]
+			},
+			{
+				"type": "node",
+				"request": "launch",
+				"name": "API: Tests",
+				"program": "${workspaceFolder}/api/node_modules/mocha/bin/_mocha",
+				"envFile": "${workspaceFolder}/api/.env.test",
+				"args": [
+					"--require", "${workspaceFolder}/api/test/hooks.js",
+					"--timeout", "30000",
+					"--colors", 
+					"${workspaceFolder}/api/test/**/*.spec.js"
+				],
+				"internalConsoleOptions": "openOnSessionStart",
 				"skipFiles": ["<node_internals>/**"]
 			},
 			{

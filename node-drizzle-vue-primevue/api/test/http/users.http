@@ -1,18 +1,10 @@
 @baseUri=http://localhost:{{$dotenv PORT}}
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoic3lzdGVtIiwibmFtZSI6IlN5c3RlbSIsImF2YXRhciI6Imh0dHBzOi8vY2RuLWljb25zLXBuZy5mbGF0aWNvbi5jb20vNTEyLzQ0NTgvNDQ1ODc1My5wbmciLCJjb3ZlciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTA2NzQ0MDM4MTM2LTQ2MjczODM0YjNmYj93PTEyMDAmcT04MCIsIm90cEVuYWJsZWQiOmZhbHNlLCJvdHBWYWxpZGF0ZWQiOmZhbHNlfSwiaWF0IjoxNzAzMzg1NjczLCJleHAiOjE3MDU5Nzc2NzMsImF1ZCI6IlRDQU0iLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJzdWIiOiJzeXN0ZW0ifQ.fghrO-ZPXlIZYC8GgSJE62jKoAzR9kbtvPXq1EuHQHk
-@login=noelle.barnes
-
-### Do login
-POST {{baseUri}}/api/v1/auth/actions/signin
-Content-Type: application/json
-
-{
-    "username": "noelle.barnes",
-    "password": "senha"
-}
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJuYW1lIjoiMzI2YjcyYzdiNTRiNGQwMzkyOTgyZGI5ODUxZDc3OTMiLCJlbWFpbCI6Im5vZWxsZS5iYXJuZXNAZW1haWwuY29tIiwidXNlcm5hbWUiOiJub2VsbGUuYmFybmVzIiwiYWN0aXZlIjp0cnVlLCJhdmF0YXIiOiJodHRwczovL2kucHJhdmF0YXIuY2MvMzAwIiwiY292ZXIiOiJodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTY4MjY4NzIyMDU2Ni01NTk5ZGJiZWJmMTE_cT04MCZ3PTgwMCIsIm90cEVuYWJsZWQiOnRydWUsIm90cFZlcmlmaWVkIjp0cnVlLCJvdHBWYWxpZGF0ZWQiOnRydWV9LCJpYXQiOjE3MDgzNTk1MTYsImV4cCI6MTcxMDk1MTUxNiwiYXVkIjoiQ1JVRCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsInN1YiI6Im5vZWxsZS5iYXJuZXMifQ.VGnjYB1FPaS3OIuFh812KzBnRy-kA7p-CmWFbf5afqg
+@username=noelle.barnes
+@password=A1noelle.barnes
 
 ### Get user
-GET {{baseUri}}/api/v1/users/{{login}}
+GET {{baseUri}}/api/v1/users/{{username}}
 Authorization: {{token}}
 
 ###  List user
@@ -25,13 +17,13 @@ Authorization: {{token}}
 Content-Type: application/json
 
 {
-    "name": "{{$guid}}",
-    "username": "{{$guid}}",
-    "password": "senha"
+  "name": "{{$guid}}",
+  "username": "{{$guid}}",
+  "password": "{{password}}"
 }
 
 ### 
-PATCH  {{baseUri}}/api/v1/users/{{login}}
+PATCH  {{baseUri}}/api/v1/users/{{username}}
 Authorization: {{token}}
 Content-Type: application/json
 
